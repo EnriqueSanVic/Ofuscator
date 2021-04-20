@@ -4,9 +4,9 @@ de un código fuente o de un conjunto de códigos fuente de una sola vez, es muy
 iguales en distintos ficheros.
 
 Funciona para plataformas Linux y Windows, ejecutables .run y .exe respectivamente.
-Proximamente para Mac OS, actualmente funciona con bugs.
+Proximamente para Mac OS.
 
-Permite pasar todos los nombres a una lista y elegir los dos caracteres o cadenas de caracteres que se usarán para la ofuscación binaria.
+Permite pasar todos los nombres de variables y referencias a una lista y elegir los dos caracteres o cadenas de caracteres que se usarán para la ofuscación binaria.
 
 El cometido no es encriptar las variables sino transformarlas en cadenas de igual longitud para que visualmente sean muy difíciles de distinguir.
 
