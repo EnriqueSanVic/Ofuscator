@@ -9,6 +9,8 @@ El cometido no es encriptar las variables sino transformarlas en cadenas de la m
 Tiene un plus para para lenguajes sin indentación (distinción de bloques sin tabulación) como Java-JavaScript-C-C++ que permite agrupar todo 
 el código en una sola línea (Para esta funcionalidad evitar comentarios).
 
-Es recomendable usar caracteres en los binarios que sean muy parecidos. Ejemplo: .
+Es recomendable usar caracteres en los binarios que sean muy parecidos. 
 
-Para más información leer el el botón "INFO" dentro del programa.
+Ejemplo: Binario A = l Binario B = I
+
+Para más información ejecutar el programa y pulsar el botón "INFO".
