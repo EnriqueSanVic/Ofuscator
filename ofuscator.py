@@ -35,28 +35,38 @@ class so:
         if sys.platform not in sistemas:
             self.sistema = sys.platform
         else:
-            self.sistema = sistemas[sys.platform] 
+            self.sistema = sistemas[sys.platform] #si no lo conoce retorna el obtenido por la llamada sea cual sea
+            
     def llamada(self,ruta):
-        #dependiendo del sistema las llamadas seran distintas
+        
+        #dependiendo del sistema las llamadas seran distintas para abrir el editor de texto plano
         if self.sistema == 'Windows': 
             subprocess.Popen("call "+ ruta, shell = True)
         elif self.sistema == 'Linux':
             subprocess.Popen(['gedit', ruta])
         elif self.sistema == 'OS X':
             subprocess.Popen(["open -a TextEdit "+ ruta], shell = True)
+            
     def navegadorArchivos(self,listbox,ventana):
+        
+        #hace una llamada al navegador de archivos del sistema operativo y guarda las rutas en el atributo listaArchivos
         self.listaArchivos = filedialog.askopenfilenames(parent=ventana,title = "Seleccionar archivos", filetypes = (("Todos los tipos","*.*"),("Archivos de texto","*.txt*")))
+        
+        #inserta las rutas en la lista de la GUI para mostrarlas al usuario
         for ruta in self.listaArchivos:
             listbox.insert(tk.END, ruta)
+            
     def cerrarVentana(self,ventana):
-
+        
+        #destrulle el objeto ventana que se le pase como argumento
         ventana.destroy()
         ventana.update()
         
-    def mensajeError(self,titulo,mensaje):
+    def mensajeError(self,titulo,mensaje): #es el método encargado de crear ventanas de error
         
-            errorVentana=tk.Toplevel() #window es el nombre del objeto ventana de la GUI.
+            errorVentana=tk.Toplevel() # Se añade como una ventana por encima de la principal
             
+            #para cada SO se definen unas medidas de ventana diferente
             if self.sistema == 'Windows':
             
             	errorVentana.geometry('410x140') #ancho por alto
@@ -74,7 +84,8 @@ class so:
             errorVentana.resizable(width=0, height=0)
             errorVentana.configure(background='gold')
             
-            if self.sistema == 'Windows':
+            #dependiendo de SO se le pasan el icono en formatos diferentes
+            if self.sistema == 'Windows': 
 
                 errorVentana.iconbitmap("icons\icono.ico")
                 
@@ -93,7 +104,7 @@ class so:
             
             errorVentana.title(titulo)
             
-            
+            #dependiendo del SO se le pasan imagenes con rutas diferentes
             if self.sistema == 'Windows':
 
                 labelImagen = ImageTk.PhotoImage(file = "icons\error.png")
@@ -109,30 +120,33 @@ class so:
                 rutaImagen = os.path.normpath("/icons/error.png")
                 errorVentana.iconbitmap(rutaImagen)
                 
-
+            #crea el objeto de la imagen de error
             warnin = Label(errorVentana, image = labelImagen,bg = 'black')
             warnin.grid(row = 2, column = 2)
             
-            
+            #espacio en blanco
             blanco2=Label(errorVentana,text=' ',bg ="gold")
             blanco2.grid(row = 2, column = 0)
             
-            
+            #etiqueta del mensaje
             men = Label(errorVentana,text=mensaje, fg = 'black',bg ="gold",width = 35, height = 7, wraplength = 280)
             men.config(font=('Arial', 11))
             men.grid(row = 2, column = 3,pady= 3)
             
-            
+            #etiqueta del titulo principal
             titulo = Label(errorVentana,text=titulo,fg = 'black',bg ="gold")
             titulo.config(font=('Arial', 18))
             titulo.place(x=210, y=10)
             
+            #boton de aceptar, llama a la funcion cerrarVentan para destruirla
             botonAceptar=Button(errorVentana, text="ACEPTAR", width=20 ,bg="black", fg="white", command = lambda: self.cerrarVentana(errorVentana))
             botonAceptar.place(x=150,y=100)
             
+            #espacio en blanco
             blanco3=Label(errorVentana,text=' ',bg ="gold")
             blanco3.grid(row = 5, column = 0)
             
+            #llamada al buble principal que genera la GUI de la ventana
             errorVentana.mainloop()
     
 def archvar(): #Crea el archivo que almacenará las variables si no existe y si si lo llamará para que se abra con el editor de texto plano predeterminado.
@@ -175,26 +189,26 @@ def write(texto,ruta): # Crea un ficheto.txt en la ruta y el string que se le ha
     
     
 def comb(numele):# Genera todas las combinaciones en un archivo de texto.
-    A = entrada3.get() #Representa al 0.
-    B = entrada4.get() #Representa al 1.
+    A = entrada3.get() #Entrada de Binario A del GUI, representa al 0.
+    B = entrada4.get() #Entrada de Binario B del GUI, representa al 1.
     combi = ""
     
-    if(A == "" or B == ""):
+    if(A == "" or B == ""): #Si algun binario es la cadena vacía se interrumpe la ejecución y llama al método error del objeto sistemaOperativo 
         sistemaOperativo.mensajeError("Error",  "Alguno de los Binarios está vacío, añada un caracter o cadena de caracteres a los dos Binarios.")
         return "Error"
     
     arch = open('comb.sig','w',encoding='utf-8')# En este archivo se almacenaran todas las combinaciones que el programa usa.
                                                 # Genera siempre un número de combinaciones ajustado.
-    termine =0
+    termine = True #flags
     m=0
     
-    while termine == 0:
-        m = m+1
+    while termine == True: #buscamos un m tal que 2^m > numele (numero de variables del input)
+        m = m+1 
         if(int(pow(2,m)) > numele):
-            termine=1
+            termine= False
         
-    y = int(pow(2,m))
-    # algoritmo basico de generacion de numeros binarios
+    y = int(pow(2,m)) 
+    # algoritmo basico de generacion de numeros binarios con las string A y B, hasta y combinaciones diferentes
     for x in range(0,y):
         combi = ""
         t=x
@@ -295,7 +309,7 @@ def main():
     vec_comb = arch_comb.readlines(100000000)
    
 
-    # sirve para eliminar los \n de todas las posiciones utiles de los vectores que almacenan las variables y las combinaciones para trabajar con ellos.
+    # sirve para eliminar los \n y cadenas vacías de todas las posiciones utiles de los vectores que almacenan las variables y las combinaciones para trabajar con ellos.
     for x in range(0,maximo):
         vec_variables[x] = vec_variables[x].replace('\n','')
         vec_variables[x] = vec_variables[x].replace(' ','')
@@ -343,7 +357,7 @@ def main():
     #paso de la interfaz la palometa para decidir si el usuario quiere usar la funcion de agrupar en una sola línea
     opc = linea.get()
     
-    if opc == 1:
+    if opc == 1:# si el usuario ha marcado la casilla de "Todo en una linea", llama al metodo agrupar
         agrupar(arch_lectura,ruta)
     
     print("Ofuscación realizada")
@@ -353,13 +367,13 @@ def limpiarLista(listbox,sistemaOperativo): #Funcionalidades del boton limpiar
      sistemaOperativo.listaArchivos = [] #Vacía el Array que contiene los archivos
             
         
-sistemaOperativo = so() #instancio el objeto sistema operativo    
+sistemaOperativo = so() #instancio el objeto sistema operativo al iniciar la ejecución 
 
 print("Sistema detectado: ",sistemaOperativo.sistema)
 
 
 
-#INTERFAZ GRÁFICA CON LIBRERÍA TKinter ------------------------------------------------------
+#INTERFAZ GRÁFICA VENTANA PRINCIPAL
 
 
 
