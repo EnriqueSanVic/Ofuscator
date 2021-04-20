@@ -13,7 +13,7 @@ El cometido no es encriptar las variables sino transformarlas en cadenas de igua
 Tiene un plus para para lenguajes sin indentación (distinción de bloques sin tabulación) como Java-JavaScript-C-C++ que permite agrupar todo 
 el código en una sola línea (Para esta funcionalidad evitar comentarios).
 
-Es recomendable usar caracteres en los binarios que sean muy parecidos. 
+Es recomendable usar en los binarios, caracteres que sean muy parecidos visualmente. 
 
 Ejemplo: Binario A = l Binario B = I
 
