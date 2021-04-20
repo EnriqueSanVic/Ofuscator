@@ -1,6 +1,6 @@
 # Ofuscator Multi-platform
 Es un ofuscador de códigos fuente escrito en Python v3.8.5 con interfaz gráfica que permite ofuscar las variables, nombres y referencias 
-de un código fuente o de un conjunto de códigos fuente de una sola vez, es muy eficaz para ofuscar proyectos enteros con nombre y referencias 
+de un código fuente o de un conjunto de códigos fuente de una sola vez, es muy eficaz para ofuscar proyectos enteros con nombres y referencias 
 iguales en distintos ficheros.
 
 Funciona para plataformas Linux y Windows, ejecutables .run y .exe respectivamente.
