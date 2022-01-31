@@ -15,4 +15,3 @@ Example: Binary A = l Binary B = I
 
 For more information run the program and press the "INFO" button.
 
-Translated with www.DeepL.com/Translator (free version)
